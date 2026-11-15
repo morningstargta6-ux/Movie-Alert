@@ -22,15 +22,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Add Homebrew Python to PATH
-        run: echo "$(brew --prefix python@3.12)/bin" >> "$GITHUB_PATH"
+      - name: Add Homebrew tools to PATH
+        run: echo "$(brew --prefix)/bin" >> "$GITHUB_PATH"
 
-      - name: Diagnose Python and install dependencies
+      - name: Create environment and install dependencies
         run: |
-          python3.12 --version
-          python3.12 -m ensurepip --upgrade --verbose
-          python3.12 -m venv -v .venv
-          .venv/bin/python -m pip install -r requirements.txt
+          uv venv --python 3.12 .venv
+          uv pip install --python .venv/bin/python -r requirements.txt
+
 
 
       - name: Run poller
