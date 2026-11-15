@@ -19,30 +19,26 @@ concurrency:
 jobs:
   poll:
     runs-on: self-hosted
-    env:
-      RUNNER_TOOL_CACHE: ${{ github.workspace }}/_toolcache
     steps:
       - uses: actions/checkout@v4
 
-      - name: Prepare Python tool cache
-        run: mkdir -p "$RUNNER_TOOL_CACHE"
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+      - name: Add Homebrew Python to PATH
+        run: echo "$(brew --prefix python@3.12)/bin" >> "$GITHUB_PATH"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python3.12 -m venv .venv
+          .venv/bin/python -m pip install -r requirements.txt
 
       - name: Run poller
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          # Route through an India egress so BookMyShow doesn't 403 the
-          # US-based GitHub runner. Set SCRAPERAPI_KEY (or PROXY_URL) as a secret.
           SCRAPERAPI_KEY: ${{ secrets.SCRAPERAPI_KEY }}
           PROXY_URL: ${{ secrets.PROXY_URL }}
-        run: python poller.py
+        run: .venv/bin/python poller.py
+
+
 
       - name: Persist state
         run: |
