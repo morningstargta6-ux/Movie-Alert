@@ -19,8 +19,13 @@ concurrency:
 jobs:
   poll:
     runs-on: self-hosted
+    env:
+      RUNNER_TOOL_CACHE: ${{ github.workspace }}/_toolcache
     steps:
       - uses: actions/checkout@v4
+
+      - name: Prepare Python tool cache
+        run: mkdir -p "$RUNNER_TOOL_CACHE"
 
       - uses: actions/setup-python@v5
         with:
