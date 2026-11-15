@@ -22,22 +22,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Set up dependencies and run with uv
+        run: uv sync
 
       - name: Run poller
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          # Route through an India egress so BookMyShow doesn't 403 the
-          # US-based GitHub runner. Set SCRAPERAPI_KEY (or PROXY_URL) as a secret.
-          SCRAPERAPI_KEY: ${{ secrets.SCRAPERAPI_KEY }}
-          PROXY_URL: ${{ secrets.PROXY_URL }}
-        run: python poller.py
+
+        run: run poller.py
 
       - name: Persist state
         run: |
