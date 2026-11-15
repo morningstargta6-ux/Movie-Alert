@@ -25,10 +25,13 @@ jobs:
       - name: Add Homebrew Python to PATH
         run: echo "$(brew --prefix python@3.12)/bin" >> "$GITHUB_PATH"
 
-      - name: Install dependencies
+      - name: Diagnose Python and install dependencies
         run: |
-          python3.12 -m venv .venv
+          python3.12 --version
+          python3.12 -m ensurepip --upgrade --verbose
+          python3.12 -m venv -v .venv
           .venv/bin/python -m pip install -r requirements.txt
+
 
       - name: Run poller
         env:
