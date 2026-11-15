@@ -1,9 +1,9 @@
 {
   "detector": "venue_date",
-  "movie": "Ramayana",
-  "requested_date": "20261116",
+  "movie": "Avengers: Doomsday",
+  "requested_date": "20261217",
   "venue_code": "MSMA",
   "venue_label": "PVR: Mani Square Mall, Kolkata",
-  "url_template": "https://in.bookmyshow.com/movies/kolkata/ramayana/buytickets/ET00523286/{date}",
-  "min_references": 10
+  "url_template": "https://in.bookmyshow.com/movies/kolkata/avengers-doomsday/buytickets/ET00439706/{date}",
+  "min_references": 3
 }
