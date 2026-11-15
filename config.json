@@ -1,7 +1,7 @@
 {
   "detector": "venue_date",
   "movie": "Ramayana",
-  "requested_date": "20261115",
+  "requested_date": "20261116",
   "venue_code": "MSMA",
   "venue_label": "PVR: Mani Square Mall, Kolkata",
   "url_template": "https://in.bookmyshow.com/movies/kolkata/ramayana/buytickets/ET00523286/{date}",
