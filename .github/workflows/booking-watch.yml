@@ -22,15 +22,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up dependencies and run with uv
-        run: uv sync
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Run poller
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
-        run: run poller.py
+        run: python poller.py
 
       - name: Persist state
         run: |
